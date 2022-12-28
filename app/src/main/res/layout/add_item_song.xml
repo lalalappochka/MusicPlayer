@@ -14,47 +14,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <ImageView
-            android:id="@+id/imgplaylist"
+            android:id="@+id/imgsong"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-
             android:background="@drawable/list_bg"
             android:src="@drawable/ic_music"
-            android:layout_width="80dp"
-            android:layout_height="80dp">
+            android:layout_width="40dp"
+            android:layout_height="40dp">
         </ImageView>
 
+        <ImageButton
+            android:id="@+id/addSongBtnPlaylist"
+            android:layout_width="93dp"
+            android:layout_height="58dp"
+            android:layout_alignStart="@+id/txtsongname"
+            android:layout_alignEnd="@+id/txtsongname"
+            android:layout_marginStart="209dp"
+            android:layout_marginEnd="7dp"
+            android:background="@drawable/ic_add"
+            tools:ignore="SpeakableTextPresentCheck" />
+
         <TextView
-            android:id="@+id/txtPlaylist"
+            android:id="@+id/txtsongname"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="23dp"
-            android:layout_marginEnd="2dp"
-            android:layout_toEndOf="@+id/imgplaylist"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@+id/imgsong"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:padding="6dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="Playlist Name"
+            android:text="Song Name"
             android:textColor="#FFF"
-            android:textSize="15dp"></TextView>
+            android:textSize="17dp">
 
-        <ImageButton
-            android:id="@+id/addSongsBtn"
-            android:layout_width="48dp"
-            android:layout_height="50dp"
-            android:layout_alignStart="@+id/txtPlaylist"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="224dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/ic_add"
-            tools:ignore="TouchTargetSizeCheck" />
+        </TextView>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

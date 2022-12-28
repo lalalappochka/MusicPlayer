@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PlaylistActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/list_bg"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgplaylist"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/list_bg"
+                android:src="@drawable/ic_music"></ImageView>
+
+            <TextView
+                android:id="@+id/txtPlaylistItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/imgplaylist"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:padding="6dp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="Playlist Name"
+                android:textColor="#FFF"
+                android:textSize="17dp"></TextView>
+
+            <ImageButton
+                android:id="@+id/addSongBtn"
+                android:layout_width="88dp"
+                android:layout_height="58dp"
+                android:layout_alignStart="@+id/txtPlaylistItemName"
+                android:layout_alignEnd="@+id/txtPlaylistItemName"
+                android:layout_marginStart="149dp"
+                android:layout_marginEnd="31dp"
+                android:src="@drawable/ic_add"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/listViewPlaylistItemSong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        android:padding="8dp"
+        android:layout_marginTop="105dp"
+        android:paddingTop="100dp"
+        />
+
+</RelativeLayout>

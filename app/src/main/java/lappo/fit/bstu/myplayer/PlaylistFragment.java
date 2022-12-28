@@ -3,6 +3,7 @@ package lappo.fit.bstu.myplayer;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,6 +25,7 @@ import java.io.File;
 import java.util.List;
 
 import lappo.fit.bstu.myplayer.database.AppDatabase;
+import lappo.fit.bstu.myplayer.database.ImageCoder;
 import lappo.fit.bstu.myplayer.database.Playlist;
 import lappo.fit.bstu.myplayer.database.PlaylistDao;
 
@@ -31,6 +34,8 @@ public class PlaylistFragment extends Fragment {
     private ListView listView;
     private ImageButton imgBtn;
     private List<Playlist> playlists;
+    private PlaylistDao dao;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +51,7 @@ public class PlaylistFragment extends Fragment {
                 .allowMainThreadQueries()
                 .build();
 
-        PlaylistDao dao = db.playlistDao();
+        dao = db.playlistDao();
 
         playlists = dao.getAll();
         customAdapter customAdapter = new customAdapter();
@@ -58,6 +63,22 @@ public class PlaylistFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddPlaylistActivity.class);
                 startActivity(intent);
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(new Intent(getActivity().getApplicationContext(), PlaylistActivity.class)
+                        .putExtra("playlistId", playlists.get(i).playlistId));
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long arg3) {
+                customAdapter.removeItem(position);
+                customAdapter.notifyDataSetChanged();
+                return true;
             }
         });
         return view;
@@ -75,6 +96,13 @@ public class PlaylistFragment extends Fragment {
             return null;
         }
 
+        public void removeItem(int i) {
+            Playlist toRemove = playlists.get(i);
+            dao.deletePlaylist(toRemove);
+
+            playlists.remove(i);
+        }
+
         @Override
         public long getItemId(int i) {
             return playlists.get(i).playlistId;
@@ -87,7 +115,7 @@ public class PlaylistFragment extends Fragment {
             ImageView playlistCover = myView.findViewById(R.id.imgsong);
             playlistName.setSelected(true);
             playlistName.setText(playlists.get(i).title);
-            playlistCover.setImageURI(Uri.parse(new File(playlists.get(i).coverPath).toString()));
+            playlistCover.setImageBitmap(ImageCoder.decodeBitmap(playlists.get(i).coverPath));
             return myView;
         }
     }

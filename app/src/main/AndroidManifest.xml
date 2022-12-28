@@ -15,6 +15,13 @@
         android:theme="@style/Theme.MyPlayer"
         tools:targetApi="31">
         <activity
+            android:name=".AddSongToPlaylistActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".PlaylistActivity"
             android:exported="false">
             <meta-data

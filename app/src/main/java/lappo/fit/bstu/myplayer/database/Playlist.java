@@ -8,6 +8,6 @@ public class Playlist {
     @PrimaryKey(autoGenerate = true)
     public long playlistId;
     public String title;
-    public String coverPath;
+    public String coverPath = "";
     public String songPaths;
 }

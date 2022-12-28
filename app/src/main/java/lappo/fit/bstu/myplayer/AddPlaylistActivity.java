@@ -7,8 +7,11 @@ import androidx.room.Room;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import java.io.File;
+import java.io.IOException;
 
 import lappo.fit.bstu.myplayer.database.AppDatabase;
+import lappo.fit.bstu.myplayer.database.ImageCoder;
 import lappo.fit.bstu.myplayer.database.Playlist;
 import lappo.fit.bstu.myplayer.database.PlaylistDao;
 
@@ -77,11 +82,14 @@ public class AddPlaylistActivity extends AppCompatActivity {
                             if(data != null
                             && data.getData() != null) {
                                 Uri selectedImageUri = data.getData();
-                                File file = new File(selectedImageUri.getPath());
-                                Log.e("EBALROT", file.getAbsolutePath());
-                                Log.e("EBALROT", file.getName());
-                                final String[] split = file.getPath().split(":");
-                                playlist.coverPath = file.getAbsolutePath() + file.getName();
+                                Bitmap bitmap = null;
+                                try {
+                                    bitmap = MediaStore.Images.Media.getBitmap(
+                                            getContentResolver(), selectedImageUri);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                playlist.coverPath = ImageCoder.encodeBitmap(bitmap);
 
                                 imageButton.setImageURI(selectedImageUri);
                             }
