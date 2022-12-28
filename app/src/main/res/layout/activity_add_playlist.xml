@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:background="@color/black"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="260dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:text="Add cover"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/imageBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.802" />
+
+        <ImageButton
+            android:id="@+id/imageBtn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/ic_blank_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="68dp"
+            android:text="Add title"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/editTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageBtn"
+            app:layout_constraintVertical_bias="0.72" />
+
+        <EditText
+            android:id="@+id/editTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/white"
+            android:hint="type here"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageBtn"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            android:text="Save playlist"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTitle"
+            app:layout_constraintVertical_bias="0.116"
+            tools:ignore="TextContrastCheck"
+            tools:layout_editor_absoluteX="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
