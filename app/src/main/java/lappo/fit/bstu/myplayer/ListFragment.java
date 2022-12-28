@@ -93,7 +93,6 @@ public class ListFragment extends Fragment {
        /* ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
         listView.setAdapter(myAdapter); */
         customAdapter customAdapter = new customAdapter();
-        System.out.println(listView);
         listView.setAdapter(customAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

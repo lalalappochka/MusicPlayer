@@ -1,24 +1,39 @@
 package lappo.fit.bstu.myplayer;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.io.File;
+import java.util.List;
+
+import lappo.fit.bstu.myplayer.database.AppDatabase;
+import lappo.fit.bstu.myplayer.database.Playlist;
+import lappo.fit.bstu.myplayer.database.PlaylistDao;
 
 
 public class PlaylistFragment extends Fragment {
     private ListView listView;
     private ImageButton imgBtn;
+    private List<Playlist> playlists;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -26,7 +41,18 @@ public class PlaylistFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_playlist, container, false);
-        imgBtn = (ImageButton) view.findViewById(R.id.imageButton);
+        AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(),
+                        AppDatabase.class, "music-db")
+                .allowMainThreadQueries()
+                .build();
+
+        PlaylistDao dao = db.playlistDao();
+
+        playlists = dao.getAll();
+        customAdapter customAdapter = new customAdapter();
+        listView = view.findViewById(R.id.listViewPlaylist);
+        listView.setAdapter(customAdapter);
+        imgBtn = view.findViewById(R.id.imageButton);
         imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,5 +61,34 @@ public class PlaylistFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    class customAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return playlists.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return playlists.get(i).playlistId;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            View myView = getLayoutInflater().inflate(R.layout.playlist_item, null);
+            TextView playlistName = myView.findViewById(R.id.txtplaylistname);
+            ImageView playlistCover = myView.findViewById(R.id.imgsong);
+            playlistName.setSelected(true);
+            playlistName.setText(playlists.get(i).title);
+            playlistCover.setImageURI(Uri.parse(new File(playlists.get(i).coverPath).toString()));
+            return myView;
+        }
     }
 }
